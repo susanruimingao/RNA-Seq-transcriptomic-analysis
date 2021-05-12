@@ -147,7 +147,7 @@ cim(sampleDists, color=cimColor, symkey=FALSE)
 
 dev.off()
 
-### Obtaining DEGs depending on the complicated design (DEGs_WT_23344_vs_BogorMukZagreb)
+# Obtaining DEGs depending on the complicated design (DEGs_WT_23344_vs_BogorMukZagreb)
 FourCounts<- read.table("/isilon/cfia-ottawa-fallowfield/users/gaoru/Bmallei_RNA-seq/genes_results/countsWT_3strains.txt",
                         header = T, sep="\t", row.names = 1)
 View(FourCounts)
@@ -166,13 +166,13 @@ contrasts<- makeContrasts(
   WT_23344_vs_BogorMuk= WT_23344 - (Bogor+Muk)/2,
   WT_23344_vs_MukZagreb= WT_23344 - (Muk+Zagreb)/2,
   WT_23344_vs_BogorMukZagreb= WT_23344 - (Bogor+Muk+Zagreb)/3,
-  # etc...
+  etc...
   levels= design
 )
 
 FourCounts[FourCounts<0]
 str(FourCounts)
-## Fit model
+#Fit model
 d <- DGEList(counts = FourCounts, group = Group)
 d <- calcNormFactors(d)
 d<- estimateGLMCommonDisp(d, design)
@@ -192,7 +192,7 @@ dea <- lrt$table
 View(dea)
 write.table(dea, file = "DEGs_WT_23344_vs_BogorMukZagreb.txt", row.names = T, sep = "\t", quote = F)
 
-### Principal Component Analysis (PCA) using ggfortify and ggplot2
+# Principal Component Analysis (PCA) using ggfortify and ggplot2
 if(!require(devtools)) install.packages("devtools")
 devtools::install_github("sinhrks/ggfortify")
 install.packages("ggfortify")
