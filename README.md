@@ -1,26 +1,27 @@
 # RNA-Seq transcriptomic analysis
 
 1) fastp: for raw reads QC and obtain trimmed reads if rquired:
-
+```
 for i in *_R1.fastq.gz ; do j=$(basename $i _R1.fastq.gz) ; fastp -i ${j}_R1.fastq.gz -I ${j}_R2.fastq.gz -o ${j}_trimmed_R1.fastq.gz -O ${j}_trimmed_R2.fastq.gz -h ${j}_fastp.htmp -j ${j}_fastp.json ; done
-
+```
 2) RSEM: reads mapping and expression calculation
 
 I. Preparing Reference Sequences
-
+```
 rsem-prepare-reference Bm_atcc23344cDNA.fa Bm_atcc23344cDNA
-
+```
 II. Calculating Expression Values
-
+```
 for i in *_R1.fastq.gz ; do j=$(basename $i _R1.fastq.gz) ; echo "rsem-calculate-expression -p 12 --bowtie2 -paired-end ${j}_R1.fastq.gz ${j}_R2.fastq.gz Bm_atcc23344cDNA ${j}" ; done
-
+```
 
 III. data statistics learned by RSEM:
-
+```
 for i in *.genes.results ; do j=$(basename $i .genes.results) ; rsem-plot-model $j $j.pdf ; done
-
+```
 
 3) in R studio, install the required packages and load necessary packages
+```
 if (!requireNamespace("BiocManager", quietly = TRUE))
   install.packages("BiocManager")
 
@@ -128,7 +129,6 @@ head(pseudoCounts)
 hist(pseudoCounts[,"X23344.1"])
 boxplot(pseudoCounts, col="gray", las=3)
 
-
 par(mfrow=c(1,2))
 avalues <- (pseudoCounts[,11] + pseudoCounts[,12])/2
 mvalues <- (pseudoCounts[,11] - pseudoCounts[,12])
@@ -146,8 +146,10 @@ cimColor <- colorRampPalette(rev(brewer.pal(9, "Blues")))(16)
 cim(sampleDists, color=cimColor, symkey=FALSE)
 
 dev.off()
+```
 
-# Obtaining DEGs depending on the complicated design (DEGs_WT_23344_vs_BogorMukZagreb)
+## Obtaining DEGs depending on the complicated design (DEGs_WT_23344_vs_BogorMukZagreb)
+```
 FourCounts<- read.table("/isilon/cfia-ottawa-fallowfield/users/gaoru/Bmallei_RNA-seq/genes_results/countsWT_3strains.txt",
                         header = T, sep="\t", row.names = 1)
 View(FourCounts)
@@ -191,8 +193,10 @@ View(lrt)
 dea <- lrt$table
 View(dea)
 write.table(dea, file = "DEGs_WT_23344_vs_BogorMukZagreb.txt", row.names = T, sep = "\t", quote = F)
+```
 
-# Principal Component Analysis (PCA) using ggfortify and ggplot2
+## Principal Component Analysis (PCA) using ggfortify and ggplot2
+```
 if(!require(devtools)) install.packages("devtools")
 devtools::install_github("sinhrks/ggfortify")
 install.packages("ggfortify")
@@ -215,3 +219,4 @@ names(samples)
 pca_res <- prcomp(aa[1:4995], scale. = TRUE)
 
 autoplot(pca_res, data = aa, colour = 'description', label = TRUE)
+```
