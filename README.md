@@ -148,7 +148,7 @@ cim(sampleDists, color=cimColor, symkey=FALSE)
 dev.off()
 ```
 
-## Obtaining DEGs depending on the complicated design (DEGs_WT_23344_vs_BogorMukZagreb)
+## Obtaining DEGs with complicated experimental design
 ```
 FourCounts<- read.table("/isilon/cfia-ottawa-fallowfield/users/gaoru/Bmallei_RNA-seq/genes_results/countsWT_3strains.txt",
                         header = T, sep="\t", row.names = 1)
