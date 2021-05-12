@@ -130,17 +130,11 @@ boxplot(pseudoCounts, col="gray", las=3)
 
 
 par(mfrow=c(1,2))
-## WT1 vs WT2
-# A values
 avalues <- (pseudoCounts[,11] + pseudoCounts[,12])/2
-# M values
 mvalues <- (pseudoCounts[,11] - pseudoCounts[,12])
 plot(avalues, mvalues, xlab="A", ylab="M", pch=19, main="WT")
 abline(h=0, col="red")
-## Mt1 vs Mt2
-# A values
 avalues <- (pseudoCounts[,20] + pseudoCounts[,21])/2
-# M values
 mvalues <- (pseudoCounts[,20] - pseudoCounts[,21])
 plot(avalues, mvalues, xlab="A", ylab="M", pch=19, main="mutant")
 abline(h=0, col="red")
@@ -175,11 +169,7 @@ contrasts<- makeContrasts(
   # etc...
   levels= design
 )
-#       Contrasts
-# Levels A_vs_B A_vs_C A_vs_BC
-#      A      1      1     1.0
-#      B     -1      0    -0.5
-#      C      0     -1    -0.5
+
 FourCounts[FourCounts<0]
 str(FourCounts)
 ## Fit model
