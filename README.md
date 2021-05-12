@@ -1,4 +1,4 @@
-# RNA-Seq-transcriptomic-analysis
+# RNA-Seq transcriptomic analysis
 
 1) fastp: for raw reads QC and obtain trimmed reads if rquired:
 
